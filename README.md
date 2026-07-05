@@ -306,13 +306,13 @@ nhs-elective-care-analytics
 
 ## How to Run the Project
 
-1. Open the Python notebook in the `02_python` folder.
-2. Run the notebook to combine and clean the monthly NHS files.
-3. Use the cleaned CSV file from the `04_clean_data` folder.
-4. Run the SQL scripts in the `05_sql` folder in numerical order.
-5. Open the Power BI file from the `06_power_bi` folder.
-6. Refresh the Power BI model if required.
-7. Use the slicers, navigation buttons and recovery simulator to explore the report.
+1. Use the cleaned CSV file from the `04_clean_data` folder.
+2. Run the SQL scripts in the `05_sql` folder in numerical order.
+3. Open the Power BI file from the `06_power_bi` folder.
+4. Refresh the Power BI model if required.
+5. Use the slicers, navigation buttons and recovery simulator to explore the report.
+
+Note: The raw monthly NHS Excel files were used locally during development and are not included in this repository. The cleaned dataset used for SQL and Power BI is included.
 
 ---
 
@@ -358,5 +358,3 @@ The project was created as a portfolio project to demonstrate end-to-end data an
 Rahul Chhabra  
 Data Analyst  
 GitHub: rahulchhabra039
-````
-

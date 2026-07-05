@@ -349,8 +349,6 @@ This project demonstrates:
 
 This project uses aggregated NHS elective care data. It does not contain patient-level personal data.
 
-The project was created as a portfolio project to demonstrate end-to-end data analytics skills using Python, SQL Server and Power BI.
-
 ---
 
 ## Author

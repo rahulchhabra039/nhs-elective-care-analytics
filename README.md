@@ -1,128 +1,372 @@
-\# NHS Elective Care Performance \& Backlog Recovery Analytics
+Yes, you are right. The NHS README needs to look more like a proper portfolio project, with clear flow, screenshots, results, tools, SQL/Python/Power BI work, and how to run it.
 
+Replace your full current `README.md` with this:
 
+````markdown
+# NHS Elective Care Performance & Backlog Recovery Analytics
 
 This project analyses NHS elective care waiting-list performance using Python, SQL Server and Power BI.
 
+The aim was to build an end-to-end analytics project that combines monthly NHS Referral to Treatment data, prepares a clean analytical dataset, creates a SQL star schema, and presents the results through an interactive Power BI report.
 
+The final dashboard helps monitor waiting-list pressure, 18-week performance, 52+ week waits, provider performance, specialty pressure and backlog recovery scenarios.
 
-The aim was to build an end-to-end analytics project that cleans monthly NHS RTT data, creates a SQL star schema, and presents the results through an interactive Power BI report for backlog monitoring and recovery planning.
+---
 
+## Project Overview
 
+NHS elective care waiting lists are a major operational challenge. This project focuses on understanding where pressure exists and how recovery activity could reduce the backlog.
 
-\---
+The analysis covers:
 
+- Total waiting-list volume
+- 18-week performance
+- Gap to the 92% RTT target
+- 52+ week waits
+- Provider-level pressure
+- Specialty-level pressure
+- Regional variation
+- Recovery scenario modelling
+- Provider profile monitoring
 
+---
 
-\## Project Overview
+## Main Results
 
+From the final Power BI report:
 
+| Metric | Result |
+|---|---:|
+| Total Waiting List | 6.65M |
+| Within 18 Weeks % | 64.3% |
+| Gap to 92% Target | 27.7% |
+| 52+ Week Waits | 95K |
+| Backlog Change | 1.1% |
+| Recovery Scenario Reduction | 2.03M |
+| Projected Waiting List | 4.61M |
+| Projected 52+ Week Waits | 66K |
 
-NHS elective care waiting lists are an important operational area because they show how many patients are still waiting for treatment.
+---
 
+## Tools Used
 
+- Python
+- SQL Server
+- Power BI
+- Power Query
+- DAX
+- Excel / CSV
 
-This project focuses on:
+---
 
-
-
-\- Total waiting list size
-
-\- 18-week performance
-
-\- Gap to the 92% target
-
-\- 52+ week waits
-
-\- Provider pressure
-
-\- Specialty pressure
-
-\- Regional variation
-
-\- Backlog recovery scenarios
-
-\- Provider-level performance trends
-
-
-
-The final report is designed as a management-style Power BI dashboard with navigation, slicers, reset buttons and a recovery simulator.
-
-
-
-\---
-
-
-
-\## Tools Used
-
-
-
-\- Python
-
-\- SQL Server
-
-\- Power BI
-
-\- Excel / CSV
-
-
-
-\---
-
-
-
-\## Project Structure
-
-
+## Project Flow
 
 ```text
+Monthly NHS Excel files
+        |
+        v
+Python data combination and cleaning
+        |
+        v
+Clean CSV dataset
+        |
+        v
+SQL Server staging table
+        |
+        v
+SQL validation checks
+        |
+        v
+Star schema model
+        |
+        v
+Power BI data model and DAX measures
+        |
+        v
+Interactive Power BI report
+```
 
-NHS Elective Care Performance \& Backlog Recovery Analytics
+---
 
-│
+## Data Preparation
 
-├── 02\_python
+Python was used to prepare the monthly NHS RTT files before loading the data into SQL Server.
 
-│   └── 01\_combine\_clean\_rtt\_data.ipynb
+The notebook:
 
-│
+- loaded multiple monthly NHS Excel files
+- extracted the reporting month from the file names
+- combined all months into one dataset
+- selected the required analytical columns
+- cleaned column names and data types
+- checked missing values and duplicates
+- handled unavailable or invalid values
+- exported the final clean CSV file
 
-├── 04\_clean\_data
+The final cleaned dataset is available in:
 
-│   └── clean\_rtt\_summary\_data.csv
+```text
+04_clean_data/clean_rtt_summary_data.csv
+```
 
-│
+---
 
-├── 05\_sql
+## SQL Development
 
-│   ├── 01\_create\_database\_and\_staging\_table.sql
+SQL Server was used to create the analytical model used in Power BI.
 
-│   ├── 02\_staging\_data\_validation.sql
+The SQL work includes:
 
-│   ├── 03\_create\_star\_schema.sql
+1. Creating the database and staging table
+2. Importing the cleaned CSV file
+3. Running staging-level validation checks
+4. Creating dimension tables
+5. Creating the fact table
+6. Building a star schema model
+7. Creating analysis views for reporting
 
-│   └── 04\_create\_analysis\_views.sql
+The final model includes:
 
-│
+- `Dim_Date`
+- `Dim_Provider`
+- `Dim_Specialty`
+- `Fact_RTT_Performance`
 
-├── 06\_power\_bi
+SQL scripts are organised in execution order:
 
-│   └── NHS\_Elective\_Care\_Analytics.pbix
+| Script | Purpose |
+|---|---|
+| `01_create_database_and_staging_table.sql` | Creates database and staging table |
+| `02_staging_data_validation.sql` | Runs validation checks on the staged data |
+| `03_create_star_schema.sql` | Creates dimension and fact tables |
+| `04_create_analysis_views.sql` | Creates reporting views for Power BI |
 
-│
+---
 
-├── 08\_screenshots
+## Power BI Report
 
-│   ├── 01\_executive\_overview.png
+The Power BI report contains four pages.
 
-│   ├── 02\_provider\_specialty.png
+---
 
-│   ├── 03\_recovery\_simulator.png
+### 1. Executive Overview
 
-│   └── 04\_provider\_profile.png
+This page provides a high-level summary of NHS elective care performance.
 
-│
+It includes:
 
+- Total waiting list
+- 18-week performance
+- Gap to 92% target
+- 52+ week waits
+- Backlog change
+- Waiting-list trend
+- Executive insight
+- Top providers by 52+ week waits
+- Top specialties by waiting list
+
+![Executive Overview](08_screenshots/01_executive_overview.png)
+
+---
+
+### 2. Provider & Specialty
+
+This page focuses on provider and specialty pressure.
+
+It includes:
+
+- Largest backlog provider
+- Highest 52+ waits provider
+- Lowest 18-week provider
+- Highest-pressure specialty
+- Provider pressure scatter chart
+- Top 10 provider pressure ranking
+- Specialty pressure ranking
+- Regional specialty heatmap
+
+![Provider and Specialty](08_screenshots/02_provider_specialty.png)
+
+---
+
+### 3. Recovery Simulator
+
+This page allows different backlog recovery scenarios to be tested.
+
+The simulator uses:
+
+- Monthly pathway reduction %
+- Additional pathways treated
+- Recovery months
+- Provider filter
+- Specialty filter
+
+In the example scenario, a 2% monthly reduction plus 50,000 additional treated pathways reduces the waiting list from 6.65M to 4.61M over 12 months.
+
+![Recovery Simulator](08_screenshots/03_recovery_simulator.png)
+
+---
+
+### 4. Provider Profile
+
+This page gives a detailed view of one selected provider.
+
+It includes:
+
+- Provider waiting list
+- 18-week performance
+- 52+ week waits
+- Gap to 92% target
+- Waiting-list rank
+- Provider trend over time
+- Specialty waiting-list mix
+- Specialty detail table
+
+![Provider Profile](08_screenshots/04_provider_profile.png)
+
+---
+
+## Power BI Features
+
+The report includes:
+
+- KPI cards
+- Trend charts
+- Ranking visuals
+- Scatter chart
+- Regional heatmap
+- Recovery simulator
+- Dynamic scenario summary
+- Provider-level profile page
+- Month and region slicers
+- Provider and specialty slicers
+- Reset buttons
+- Page navigation buttons
+- DAX measures for waiting-list and performance metrics
+
+---
+
+## Key Measures
+
+Some of the main measures created in Power BI include:
+
+- Total Waiting List
+- Within 18 Weeks %
+- Gap to 92% Target
+- 52+ Week Waits
+- Monthly Backlog Change %
+- Projected Waiting List
+- Backlog Reduction
+- Projected 52+ Week Waits
+- Provider Waiting List Rank
+- Specialty Waiting List
+- Specialty Within 18 Weeks %
+- Specialty 52+ Waits
+- Specialty Pressure Rank
+
+---
+
+## Key Insights
+
+The report highlights that:
+
+- The overall waiting list remains high across the reporting period.
+- 18-week performance is below the 92% target.
+- A small group of providers contributes heavily to long waits.
+- Specialty pressure differs across regions.
+- Recovery activity can reduce the projected backlog when pathway reduction and extra treated pathways are increased.
+- Provider-level analysis helps identify where performance issues are concentrated.
+
+---
+
+## Repository Structure
+
+```text
+nhs-elective-care-analytics
+|
+├── 02_python
+│   └── 01_combine_clean_rtt_data.ipynb
+|
+├── 04_clean_data
+│   └── clean_rtt_summary_data.csv
+|
+├── 05_sql
+│   ├── 01_create_database_and_staging_table.sql
+│   ├── 02_staging_data_validation.sql
+│   ├── 03_create_star_schema.sql
+│   └── 04_create_analysis_views.sql
+|
+├── 06_power_bi
+│   └── NHS_Elective_Care_Analytics.pbix
+|
+├── 08_screenshots
+│   ├── 01_executive_overview.png
+│   ├── 02_provider_specialty.png
+│   ├── 03_recovery_simulator.png
+│   └── 04_provider_profile.png
+|
 └── README.md
+```
 
+---
+
+## How to Run the Project
+
+1. Open the Python notebook in the `02_python` folder.
+2. Run the notebook to combine and clean the monthly NHS files.
+3. Use the cleaned CSV file from the `04_clean_data` folder.
+4. Run the SQL scripts in the `05_sql` folder in numerical order.
+5. Open the Power BI file from the `06_power_bi` folder.
+6. Refresh the Power BI model if required.
+7. Use the slicers, navigation buttons and recovery simulator to explore the report.
+
+---
+
+## Files Included
+
+| Folder | Description |
+|---|---|
+| `02_python` | Python notebook used for data cleaning |
+| `04_clean_data` | Final cleaned CSV dataset |
+| `05_sql` | SQL scripts for staging, validation, star schema and views |
+| `06_power_bi` | Final Power BI report file |
+| `08_screenshots` | Screenshots of the final report pages |
+
+---
+
+## Skills Demonstrated
+
+This project demonstrates:
+
+- Data cleaning with Python
+- Data validation
+- SQL Server development
+- Star schema modelling
+- Power BI dashboard design
+- DAX measure creation
+- Healthcare performance analysis
+- Scenario modelling
+- KPI reporting
+- Dashboard storytelling
+
+---
+
+## Notes
+
+This project uses aggregated NHS elective care data. It does not contain patient-level personal data.
+
+The project was created as a portfolio project to demonstrate end-to-end data analytics skills using Python, SQL Server and Power BI.
+
+---
+
+## Author
+
+Rahul Chhabra  
+Data Analyst  
+GitHub: rahulchhabra039
+````
+
+Now go to GitHub → click the pencil icon on README → select all old content → paste this full README → commit with message:
+
+```text
+Update README
+```

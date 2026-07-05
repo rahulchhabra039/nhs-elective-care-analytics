@@ -1,8 +1,3 @@
-Yes, you are right. The NHS README needs to look more like a proper portfolio project, with clear flow, screenshots, results, tools, SQL/Python/Power BI work, and how to run it.
-
-Replace your full current `README.md` with this:
-
-````markdown
 # NHS Elective Care Performance & Backlog Recovery Analytics
 
 This project analyses NHS elective care waiting-list performance using Python, SQL Server and Power BI.

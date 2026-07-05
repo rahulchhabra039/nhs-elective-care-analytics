@@ -360,8 +360,3 @@ Data Analyst
 GitHub: rahulchhabra039
 ````
 
-Now go to GitHub → click the pencil icon on README → select all old content → paste this full README → commit with message:
-
-```text
-Update README
-```
